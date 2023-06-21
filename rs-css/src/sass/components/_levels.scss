@@ -1,0 +1,10 @@
+.levels {}
+
+.level {
+  cursor: pointer;
+}
+
+.level:hover,
+.level--current {
+  background: red;
+}
