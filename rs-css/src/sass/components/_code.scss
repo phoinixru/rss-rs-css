@@ -1,0 +1,52 @@
+.codes {
+  display: flex;
+  background: #666;
+  padding: .5em;
+  flex-direction: row;
+}
+
+.code {
+  width: 50%;
+  display: grid;
+  border: 1px solid #fff;
+}
+
+.code--css {
+  border-right: 0;
+}
+
+.code__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.code__title {
+  box-sizing: border-box;
+  padding: .5em;
+  margin: 0;
+  font-size: 1em;
+}
+
+.code__filename {
+  box-sizing: border-box;
+  padding: .5em;
+  margin: 0;
+  font-size: 1em;
+}
+
+.code__markup {
+  display: flex;
+  flex-direction: row;
+}
+
+.code__lines {
+  background: pink;
+  padding: 0.3em;
+}
+
+.code__content {
+  background: #ccc;
+  width: 100%;
+  padding: 0.3em;
+}

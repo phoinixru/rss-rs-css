@@ -6,6 +6,8 @@ import Header from './components/header';
 import Footer from './components/footer';
 import LevelList from './components/levels';
 import Board from './components/board';
+import CssViewer from './components/css-viewer';
+import HtmlViewer from './components/html-viewer';
 
 const CssClasses = {
   WRAPPER: 'wrapper',
@@ -13,6 +15,7 @@ const CssClasses = {
   MAIN: 'main',
   FOOTER: 'footer',
   ASIDE: 'aside',
+  CODES: 'codes',
 };
 
 export default class RsCss implements App {
@@ -22,13 +25,19 @@ export default class RsCss implements App {
 
   #board: Board;
 
+  #cssViewer: CssViewer;
+
+  #htmlViewer: HtmlViewer;
+
   #levelList: LevelList;
 
   constructor() {
     this.#levels = LEVELS;
     this.#save = new LocalStorage();
-    this.#levelList = new LevelList(this.#levels);
     this.#board = new Board();
+    this.#cssViewer = new CssViewer();
+    this.#htmlViewer = new HtmlViewer();
+    this.#levelList = new LevelList(this.#levels);
     this.loadLevel(2);
     this.addEventListeners();
   }
@@ -46,11 +55,14 @@ export default class RsCss implements App {
     const wrapper = elt<HTMLDivElement>('div', { className: CssClasses.WRAPPER });
     const mainElement = elt<HTMLElement>('main', { className: CssClasses.MAIN });
     const asideElement = elt<HTMLElement>('aside', { className: CssClasses.ASIDE });
+    const codesElement = elt<HTMLElement>('div', { className: CssClasses.CODES });
 
     const header = new Header();
     const footer = new Footer();
 
-    mainElement.append(header.getElement(), this.#board.getElement(), footer.getElement());
+    codesElement.append(this.#cssViewer.getElement(), this.#htmlViewer.getElement());
+
+    mainElement.append(header.getElement(), this.#board.getElement(), codesElement, footer.getElement());
     asideElement.append(this.#levelList.getElement());
 
     wrapper.append(mainElement, asideElement);
