@@ -12,11 +12,15 @@ const CssClasses = {
 };
 
 export default class Board extends Component {
+  private static instance: Board;
+
   #title: HTMLElement;
 
   #board: HTMLElement;
 
-  constructor() {
+  private hints = new Map<HTMLElement, string>();
+
+  private constructor() {
     const element = elt<HTMLDivElement>('div', { className: CssClasses.BOARD });
     super(element);
     this.#title = elt<HTMLElement>('h2', { className: CssClasses.TITLE });
@@ -25,25 +29,36 @@ export default class Board extends Component {
     this.addEventListeners();
   }
 
+  public static getInstance(): Board {
+    if (!Board.instance) {
+      Board.instance = new Board();
+    }
+    return Board.instance;
+  }
+
   private render(): void {
     this.element.append(this.#title, this.#board);
   }
 
   private addEventListeners(): void {
     const toggleHover = (element: EventTarget | null, hover: boolean): void => {
-      console.log(element);
       if (!element || !(element instanceof HTMLElement)) {
         return;
       }
-      element.classList.toggle(CssClasses.HOVER, hover);
+      this.toggleHover(element, hover);
     };
 
     this.#board.addEventListener('mouseover', (event) => toggleHover(event.target, true));
     this.#board.addEventListener('mouseout', (event) => toggleHover(event.target, false));
   }
 
+  public toggleHover(element: HTMLElement, hover: boolean): void {
+    element.classList.toggle(CssClasses.HOVER, hover);
+    console.log(this);
+  }
+
   public setBoard(level: Level): void {
-    const { boardMarkup, doThis, selector } = level;
+    const { boardMarkup, doThis } = level;
     const replacer = (m: string, tag: string): string => {
       return m.replace('/>', `></${tag}>`);
     };
@@ -54,11 +69,9 @@ export default class Board extends Component {
     this.#board.innerHTML = '';
     this.#board.append(tableElement);
     this.#title.innerHTML = doThis;
-
-    this.highlight(selector);
   }
 
-  private highlight(selector: string): void {
+  public highlight(selector: string): void {
     this.selectItems(selector).forEach((element) => {
       element.classList.toggle(CssClasses.HIGHLIGHT, true);
     });

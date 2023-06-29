@@ -34,9 +34,9 @@ export default class RsCss implements App {
   constructor() {
     this.#levels = LEVELS;
     this.#save = new LocalStorage();
-    this.#board = new Board();
+    this.#board = Board.getInstance();
     this.#cssViewer = new CssViewer();
-    this.#htmlViewer = new HtmlViewer();
+    this.#htmlViewer = HtmlViewer.getInstance();
     this.#levelList = new LevelList(this.#levels);
     this.loadLevel(2);
     this.addEventListeners();
@@ -75,6 +75,9 @@ export default class RsCss implements App {
     }
 
     const level = this.#levels[id];
+    const { selector } = level;
     this.#board.setBoard(level);
+    this.#htmlViewer.setContent(this.#board.getBoardContent());
+    this.#board.highlight(selector);
   }
 }

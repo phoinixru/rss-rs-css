@@ -34,7 +34,7 @@ export class CodeViewer extends Component {
 
   #filename: string;
 
-  #contentElement: HTMLElement;
+  protected contentElement: HTMLElement;
 
   constructor({ lines = DEFAULT_LINES, title, filename, type }: CodeViewerOptions) {
     const element = elt<HTMLDivElement>('div', { className: CssClasses.CODE });
@@ -46,7 +46,7 @@ export class CodeViewer extends Component {
     this.#lines = lines;
     this.#title = title;
     this.#filename = filename;
-    this.#contentElement = elt<HTMLElement>('div', { className: CssClasses.CONTENT });
+    this.contentElement = elt<HTMLElement>('div', { className: CssClasses.CONTENT });
     this.render();
   }
 
@@ -58,7 +58,7 @@ export class CodeViewer extends Component {
     const markup = elt<HTMLDivElement>('div', { className: CssClasses.MARKUP });
 
     header.append(titleElement, filenameElement);
-    markup.append(linesElement, this.#contentElement);
+    markup.append(linesElement, this.contentElement);
     this.element.append(header, markup);
   }
 

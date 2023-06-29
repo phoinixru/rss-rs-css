@@ -3,6 +3,7 @@
   background: #666;
   padding: .5em;
   flex-direction: row;
+  user-select: none;
 }
 
 .code {
@@ -38,6 +39,7 @@
 .code__markup {
   display: flex;
   flex-direction: row;
+  font-size: 0.9em;
 }
 
 .code__lines {
@@ -49,4 +51,63 @@
   background: #ccc;
   width: 100%;
   padding: 0.3em;
+  font-family: var(--ff-monospace);
+}
+
+.code--html {
+  .code__content {
+    background-color: #313842;
+    cursor: default;
+  }
+}
+
+.node {
+  --bracket: #5fb4b5;
+  --tag: #ed5f66;
+  --attribute: #c594c5;
+  --value: #99c894;
+  --quote: #5fb4b5;
+  --equal: #a7adb9;
+  --disabled: #999999;
+  --hover: #fff;
+
+  .node {
+    padding-left: 1em;
+  }
+
+  .b {
+    color: var(--bracket);
+  }
+
+  .t {
+    color: var(--tag);
+  }
+
+  .a {
+    color: var(--attribute);
+  }
+
+  .v {
+    color: var(--value);
+  }
+
+  .q {
+    color: var(--quote);
+  }
+
+  .e {
+    color: var(--equal);
+  }
+}
+
+.node--root {
+  &>.tag span {
+    color: var(--disabled);
+  }
+}
+
+.node--hover {
+  .tag span {
+    color: var(--hover);
+  }
 }
