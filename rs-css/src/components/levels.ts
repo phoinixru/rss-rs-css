@@ -1,5 +1,5 @@
 import { Level } from '../types';
-import { elt } from '../utils/utils';
+import { dispatch, elt } from '../utils/utils';
 import Component from './component';
 
 const CssClasses = {
@@ -41,6 +41,7 @@ export default class LevelList extends Component {
 
     const id = Number(item.dataset.index);
     this.changeLevel(id);
+    dispatch<number>('level', id);
   }
 
   public changeLevel(level: number): void {

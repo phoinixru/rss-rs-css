@@ -29,3 +29,9 @@ export type ElementProps = {
   innerHTML?: string;
   href?: string;
 };
+
+declare global {
+  interface DocumentEventMap {
+    level: CustomEvent<number>;
+  }
+}

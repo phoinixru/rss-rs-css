@@ -25,5 +25,10 @@ function elt<T extends HTMLElement>(type: string, props: ElementProps, ...childr
   return dom;
 }
 
+function dispatch<T>(type: string, detail: T): void {
+  const event = new CustomEvent<T>(type, { detail });
+  document.dispatchEvent(event);
+}
+
 const { keys, values, assign, entries, fromEntries } = Object;
-export { qs, qsa, elt, keys, values, assign, entries, fromEntries };
+export { qs, qsa, elt, keys, values, assign, entries, fromEntries, dispatch };

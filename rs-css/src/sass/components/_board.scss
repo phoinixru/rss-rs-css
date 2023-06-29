@@ -1,0 +1,109 @@
+.board__title {
+  text-align: center;
+}
+
+.board__content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transform: rotateX(30deg);
+  transform-origin: bottom;
+}
+
+.board {
+  transform: translate3d(0, 0, 0);
+  perspective: 400px;
+
+  .table {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding: 1em 2em;
+    background: pink;
+    border: 2px outset #ccc;
+    transform-style: preserve-3d;
+  }
+
+  plate,
+  bento {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    border: 3px solid rgb(191, 105, 105);
+  }
+
+  plate {
+    border-radius: 100%;
+
+    &#fancy {
+      border-color: rgba(130, 130, 230, 0.909);
+    }
+
+    bento {
+      width: 80%;
+      height: 80%;
+      margin-bottom: 1em;
+    }
+  }
+
+  orange,
+  apple {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+
+    &.small {
+      width: 25px;
+      height: 25px;
+    }
+  }
+
+  orange {
+    background: orange;
+  }
+
+  apple {
+    background: red;
+  }
+
+  pickle {
+    display: flex;
+    width: 25px;
+    height: 50px;
+    border-radius: 25px;
+    background: green;
+
+    &.small {
+      width: 13px;
+      height: 25px;
+      border-radius: 13px;
+    }
+  }
+
+  .highlight {
+    animation: glowing 1300ms infinite;
+  }
+
+  .table .hover {
+    outline: 5px solid rgba(255, 255, 255, .5);
+  }
+}
+
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 5px var(--glow-color);
+  }
+
+  50% {
+    box-shadow: 0 0 20px var(--glow-color);
+  }
+
+  100% {
+    box-shadow: 0 0 5px var(--glow-color);
+  }
+}
