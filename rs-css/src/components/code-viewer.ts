@@ -24,7 +24,7 @@ const numbers = (count: number): number[] =>
     .fill(1)
     .map((e, i) => e + i);
 
-const numToString = (num: number, maxLength = 2, fillString = '0'): string =>
+const numToString = (num: number, maxLength = 2, fillString = ' '): string =>
   String(num).padStart(maxLength, fillString);
 
 export class CodeViewer extends Component {

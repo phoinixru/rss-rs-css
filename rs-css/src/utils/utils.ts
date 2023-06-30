@@ -11,7 +11,7 @@ const qsa = <T extends HTMLElement>(selector: string, element: Parent = document
 };
 
 type ElementChild = ChildNode | string;
-function elt<T extends HTMLElement>(type: string, props: ElementProps, ...children: ElementChild[]): T {
+function elt<T extends HTMLElement>(type: string, props?: ElementProps, ...children: ElementChild[]): T {
   const dom = document.createElement(type) as T;
   if (props) {
     Object.assign(dom, props);

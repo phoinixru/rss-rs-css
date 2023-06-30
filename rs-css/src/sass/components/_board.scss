@@ -1,5 +1,6 @@
 .board__title {
   text-align: center;
+  color: rgba(255, 255, 255, .5);
 }
 
 .board__content {
@@ -7,11 +8,13 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  position: relative;
   transform: rotateX(30deg);
   transform-origin: bottom;
 }
 
 .board {
+  position: relative;
   transform: translate3d(0, 0, 0);
   perspective: 400px;
 
@@ -23,6 +26,10 @@
     background: pink;
     border: 2px outset #ccc;
     transform-style: preserve-3d;
+
+    * {
+      position: relative;
+    }
   }
 
   plate,
@@ -87,7 +94,7 @@
 
   .highlight {
     // animation: glowing 1300ms infinite;
-    box-shadow: 0 0 20px var(--glow-color);
+    // box-shadow: 0 0 20px var(--glow-color);
   }
 
   .table .hover {
@@ -97,14 +104,31 @@
 
 @keyframes glowing {
   0% {
-    box-shadow: 0 0 5px var(--glow-color);
+    // box-shadow: 0 0 5px var(--glow-color);
   }
 
   50% {
-    box-shadow: 0 0 20px var(--glow-color);
+    transform: translateY(-10px);
+    // box-shadow: 0 0 20px var(--glow-color);
   }
 
   100% {
-    box-shadow: 0 0 5px var(--glow-color);
+    // box-shadow: 0 0 5px var(--glow-color);
   }
+}
+
+.board__hint {
+  position: absolute;
+  display: none;
+  top: 0;
+  background: #fff;
+  border: 2px solid #999;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, .5);
+  padding: 0.2em 0.5em;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.board__hint--show {
+  display: block;
 }

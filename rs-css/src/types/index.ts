@@ -28,7 +28,7 @@ export type ElementProps = {
   className?: string;
   innerHTML?: string;
   href?: string;
-};
+} | null;
 
 declare global {
   interface DocumentEventMap {

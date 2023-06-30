@@ -1,8 +1,10 @@
+import { MAIN_TITLE } from '../config';
 import { elt } from '../utils/utils';
 import Component from './component';
 
 const CssClasses = {
   HEADER: 'header',
+  TITLE: 'header__title',
 };
 
 export default class Header extends Component {
@@ -12,6 +14,6 @@ export default class Header extends Component {
   }
 
   private render(): void {
-    this.element.innerHTML = '<h1>RS CSS</h1>';
+    this.element.append(elt<HTMLElement>('h1', { className: CssClasses.TITLE }, MAIN_TITLE));
   }
 }
