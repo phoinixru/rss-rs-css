@@ -27,7 +27,7 @@ const numbers = (count: number): number[] =>
 const numToString = (num: number, maxLength = 2, fillString = ' '): string =>
   String(num).padStart(maxLength, fillString);
 
-export class CodeViewer extends Component {
+export class CodeViewer extends Component<HTMLDivElement> {
   #lines: number;
 
   #title: string;

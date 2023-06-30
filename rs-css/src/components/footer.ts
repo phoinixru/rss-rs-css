@@ -11,7 +11,7 @@ const GITHUB_LINK = 'https://github.com/phoinixru';
 const GITHUB_NAME = 'phoinixru';
 const RSSCHOOL_LINK = 'https://rs.school/js/';
 
-export default class Footer extends Component {
+export default class Footer extends Component<HTMLElement> {
   constructor() {
     super(elt<HTMLElement>('footer', { className: CssClasses.FOOTER }));
     this.render();

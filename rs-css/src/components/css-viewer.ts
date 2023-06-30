@@ -1,5 +1,6 @@
 import { CSS_FILENAME, CSS_TITLE } from '../config';
 import { CodeViewer } from './code-viewer';
+import Fieldset from './fieldset';
 
 const CSS_TEXT = `{
 /* Styles would go here. */
@@ -15,5 +16,8 @@ export default class CssViewer extends CodeViewer {
 
   private setContent(): void {
     this.contentElement.innerHTML = addLineBreaks(CSS_TEXT);
+
+    const fieldset = Fieldset.getInstance();
+    this.contentElement.prepend(fieldset.getElement());
   }
 }

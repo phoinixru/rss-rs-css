@@ -27,7 +27,7 @@ const offsetTo = (element: HTMLElement, to: HTMLElement): number => {
   return fullOffset;
 };
 
-export default class Board extends Component {
+export default class Board extends Component<HTMLDivElement> {
   private static instance: Board;
 
   #title: HTMLElement;

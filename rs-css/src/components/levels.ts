@@ -11,7 +11,7 @@ const CssClasses = {
   CURRENT: 'level--current',
 };
 
-export default class LevelList extends Component {
+export default class LevelList extends Component<HTMLDivElement> {
   #levels;
 
   #currentLevel = 0;

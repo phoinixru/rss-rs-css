@@ -7,9 +7,9 @@ const CssClasses = {
   TITLE: 'header__title',
 };
 
-export default class Header extends Component {
+export default class Header extends Component<HTMLHeadingElement> {
   constructor() {
-    super(elt<HTMLElement>('header', { className: CssClasses.HEADER }));
+    super(elt<HTMLHeadingElement>('header', { className: CssClasses.HEADER }));
     this.render();
   }
 

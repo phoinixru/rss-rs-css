@@ -1,11 +1,11 @@
-export default class Component {
-  protected element: HTMLElement;
+export default class Component<T extends HTMLElement> {
+  protected element: T;
 
-  constructor(element: HTMLElement) {
+  constructor(element: T) {
     this.element = element;
   }
 
-  public getElement(): HTMLElement {
+  public getElement(): T {
     return this.element;
   }
 }
