@@ -4,10 +4,13 @@ const STORAGE_NAME = 'phoinixru-rs-css';
 export default class LocalStorage<T extends Record<string, unknown>> {
   #name: string;
 
+  #defaultData: string;
+
   #data: T = {} as T;
 
-  constructor(name = STORAGE_NAME) {
+  constructor(defaultData = {}, name = STORAGE_NAME) {
     this.#name = name;
+    this.#defaultData = JSON.stringify(defaultData);
 
     this.load();
   }
@@ -29,7 +32,7 @@ export default class LocalStorage<T extends Record<string, unknown>> {
   private load(): T {
     let storedData: T;
     try {
-      storedData = parse(localStorage.getItem(this.#name) || '{}') as T;
+      storedData = parse(localStorage.getItem(this.#name) || this.#defaultData) as T;
     } catch (e) {
       storedData = {} as T;
     }

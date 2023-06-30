@@ -30,5 +30,10 @@ function dispatch<T>(type: string, detail: T): void {
   document.dispatchEvent(event);
 }
 
+const pause = (msec: number): Promise<void> =>
+  new Promise((resolve) => {
+    setTimeout(resolve, msec, `pause ${msec}`);
+  });
+
 const { keys, values, assign, entries, fromEntries } = Object;
-export { qs, qsa, elt, keys, values, assign, entries, fromEntries, dispatch };
+export { qs, qsa, elt, keys, values, assign, entries, fromEntries, dispatch, pause };

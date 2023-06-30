@@ -1,4 +1,4 @@
-import { Level, App, GameSave } from './types';
+import { Level, App, GameSave, LevelResult } from './types';
 import LEVELS from './levels';
 import LocalStorage from './utils/localStorage';
 import { elt } from './utils/utils';
@@ -10,12 +10,24 @@ import CssViewer from './components/css-viewer';
 import HtmlViewer from './components/html-viewer';
 
 const CssClasses = {
+  APP: 'app',
+  MISTAKE: 'app--mistake',
   WRAPPER: 'wrapper',
   HEADER: 'header',
   MAIN: 'main',
   FOOTER: 'footer',
   ASIDE: 'aside',
   CODES: 'codes',
+};
+
+const compareArrays = <T>(firstArray: T[], secondArray: T[]): boolean =>
+  firstArray.length === secondArray.length &&
+  firstArray.every((el) => secondArray.includes(el)) &&
+  secondArray.every((el) => firstArray.includes(el));
+
+const EMPTY_SAVE: GameSave = {
+  currentLevel: 0,
+  results: [],
 };
 
 export default class RsCss implements App {
@@ -31,11 +43,19 @@ export default class RsCss implements App {
 
   #levelList: LevelList;
 
+  #currentLevel: Level;
+
+  #helpRequested = false;
+
+  #wrapper: HTMLDivElement;
+
   constructor() {
+    this.#wrapper = elt<HTMLDivElement>('div', { className: CssClasses.WRAPPER });
     this.#levels = LEVELS;
-    this.#save = new LocalStorage();
+    [this.#currentLevel] = LEVELS;
+    this.#save = new LocalStorage(EMPTY_SAVE);
     this.#board = Board.getInstance();
-    this.#cssViewer = new CssViewer();
+    this.#cssViewer = new CssViewer(this);
     this.#htmlViewer = HtmlViewer.getInstance();
     this.#levelList = new LevelList(this.#levels);
     this.loadLevel(2);
@@ -44,6 +64,9 @@ export default class RsCss implements App {
 
   private addEventListeners(): void {
     document.addEventListener('level', (event) => this.handleLevelChange(event));
+    document.addEventListener('animationend', () => {
+      this.#wrapper.classList.remove(CssClasses.MISTAKE);
+    });
   }
 
   private handleLevelChange(event: CustomEvent<number>): void {
@@ -52,10 +75,12 @@ export default class RsCss implements App {
   }
 
   public start(): void {
-    const wrapper = elt<HTMLDivElement>('div', { className: CssClasses.WRAPPER });
-    const mainElement = elt<HTMLElement>('main', { className: CssClasses.MAIN });
-    const asideElement = elt<HTMLElement>('aside', { className: CssClasses.ASIDE });
-    const codesElement = elt<HTMLElement>('div', { className: CssClasses.CODES });
+    const { APP, MAIN, ASIDE, CODES } = CssClasses;
+    this.#wrapper.classList.add(APP);
+
+    const mainElement = elt<HTMLElement>('main', { className: MAIN });
+    const asideElement = elt<HTMLElement>('aside', { className: ASIDE });
+    const codesElement = elt<HTMLElement>('div', { className: CODES });
 
     const header = new Header();
     const footer = new Footer();
@@ -65,8 +90,8 @@ export default class RsCss implements App {
     mainElement.append(header.getElement(), this.#board.getElement(), codesElement, footer.getElement());
     asideElement.append(this.#levelList.getElement());
 
-    wrapper.append(mainElement, asideElement);
-    document.body.append(wrapper);
+    this.#wrapper.append(mainElement, asideElement);
+    document.body.append(this.#wrapper);
   }
 
   private loadLevel(id: number): void {
@@ -75,9 +100,60 @@ export default class RsCss implements App {
     }
 
     const level = this.#levels[id];
+    this.#currentLevel = level;
+    this.#helpRequested = false;
+
     const { selector } = level;
     this.#board.setBoard(level);
     this.#htmlViewer.setContent(this.#board.getBoardContent());
     this.#board.highlight(selector);
+  }
+
+  public checkAnswer(answer: string): boolean {
+    let answerElements;
+    try {
+      answerElements = this.#board.selectItems(answer, true);
+    } catch (e) {
+      return false;
+    }
+
+    const solution = this.getCorrectAnswer();
+    const solutionElements = this.#board.selectItems(solution, true);
+    const win = compareArrays(solutionElements, answerElements);
+
+    return win;
+  }
+
+  public requestAnswer(): string {
+    this.#helpRequested = true;
+    return this.getCorrectAnswer();
+  }
+
+  private getCorrectAnswer(): string {
+    return this.#currentLevel.selector;
+  }
+
+  public indicateMistake(): void {
+    this.#wrapper.classList.add(CssClasses.MISTAKE);
+  }
+
+  public correctAnswer(): void {
+    this.saveProgress();
+    this.loadNextLevel();
+  }
+
+  private loadNextLevel(): void {
+    this.loadLevel(this.getCurrentLevelId() + 1);
+  }
+
+  private getCurrentLevelId(): number {
+    return this.#levels.indexOf(this.#currentLevel);
+  }
+
+  private saveProgress(): void {
+    const levelId = this.getCurrentLevelId();
+    const results = this.#save.get('results') as LevelResult[];
+    results[levelId] = this.#helpRequested ? LevelResult.SOLVED_WITH_HELP : LevelResult.SOLVED;
+    this.#save.set('results', results);
   }
 }

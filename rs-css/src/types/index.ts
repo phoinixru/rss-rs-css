@@ -11,6 +11,10 @@ export type Level = {
 
 export abstract class App {
   public abstract start(): void;
+  public abstract requestAnswer(): string;
+  public abstract checkAnswer(answer: string): boolean;
+  public abstract indicateMistake(): void;
+  public abstract correctAnswer(): void;
 }
 
 export const enum LevelResult {
@@ -28,6 +32,7 @@ export type ElementProps = {
   className?: string;
   innerHTML?: string;
   href?: string;
+  placeholder?: string;
 } | null;
 
 declare global {
