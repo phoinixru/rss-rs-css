@@ -9,6 +9,22 @@ const CssClasses = {
   TABLE: 'table',
   HIGHLIGHT: 'highlight',
   HOVER: 'hover',
+  HINT: 'board__hint',
+  HINT_SHOW: 'board__hint--show',
+};
+
+const html = (element: HTMLElement): string => {
+  return element.outerHTML.replace(/>.+</ms, '><');
+};
+
+const offsetTo = (element: HTMLElement, to: HTMLElement): number => {
+  let fullOffset = element.offsetLeft;
+  let parent = element.offsetParent as HTMLElement;
+  while (parent && parent !== to) {
+    fullOffset += parent.offsetLeft;
+    parent = parent.offsetParent as HTMLElement;
+  }
+  return fullOffset;
 };
 
 export default class Board extends Component {
@@ -18,13 +34,18 @@ export default class Board extends Component {
 
   #board: HTMLElement;
 
+  #shadowBoard: HTMLElement;
+
+  #hint: HTMLElement;
+
   private hints = new Map<HTMLElement, string>();
 
   private constructor() {
-    const element = elt<HTMLDivElement>('div', { className: CssClasses.BOARD });
-    super(element);
+    super(elt<HTMLDivElement>('div', { className: CssClasses.BOARD }));
     this.#title = elt<HTMLElement>('h2', { className: CssClasses.TITLE });
     this.#board = elt<HTMLElement>('div', { className: CssClasses.CONTENT });
+    this.#shadowBoard = elt<HTMLElement>('div');
+    this.#hint = elt<HTMLElement>('div', { className: CssClasses.HINT });
     this.render();
     this.addEventListeners();
   }
@@ -37,7 +58,7 @@ export default class Board extends Component {
   }
 
   private render(): void {
-    this.element.append(this.#title, this.#board);
+    this.element.append(this.#title, this.#board, this.#hint);
   }
 
   private addEventListeners(): void {
@@ -54,7 +75,22 @@ export default class Board extends Component {
 
   public toggleHover(element: HTMLElement, hover: boolean): void {
     element.classList.toggle(CssClasses.HOVER, hover);
-    console.log(this);
+    this.toggleHint(element, hover);
+  }
+
+  private toggleHint(element: HTMLElement, show: boolean): void {
+    const hintText = this.hints.get(element);
+    if (!hintText) {
+      return;
+    }
+
+    if (show) {
+      this.#hint.innerText = hintText;
+      const offsetLeft = offsetTo(element, this.#board) + element.offsetWidth / 2;
+      this.#hint.style.left = `${offsetLeft}px`;
+    }
+
+    this.#hint.classList.toggle(CssClasses.HINT_SHOW, show);
   }
 
   public setBoard(level: Level): void {
@@ -68,7 +104,18 @@ export default class Board extends Component {
     tableElement.innerHTML = boardHTML;
     this.#board.innerHTML = '';
     this.#board.append(tableElement);
+    this.#shadowBoard.innerHTML = tableElement.outerHTML;
     this.#title.innerHTML = doThis;
+
+    this.prepareHints(tableElement);
+  }
+
+  private prepareHints(element: HTMLElement): void {
+    this.hints.clear();
+    const elements = qsa<HTMLElement>('*', element);
+    elements.forEach((el) => {
+      this.hints.set(el, html(el));
+    });
   }
 
   public highlight(selector: string): void {
@@ -77,8 +124,8 @@ export default class Board extends Component {
     });
   }
 
-  public selectItems(selector: string): HTMLElement[] {
-    const table = qs<HTMLElement>(`.${CssClasses.TABLE}`, this.#board);
+  public selectItems(selector: string, fromShadow = false): HTMLElement[] {
+    const table = qs<HTMLElement>(`.${CssClasses.TABLE}`, fromShadow ? this.#shadowBoard : this.#board);
     if (!table) {
       return [];
     }
