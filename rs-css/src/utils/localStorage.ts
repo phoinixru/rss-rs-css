@@ -1,5 +1,6 @@
+import { STORAGE_NAME } from '../config';
+
 const { stringify, parse } = JSON;
-const STORAGE_NAME = 'phoinixru-rs-css';
 
 export default class LocalStorage<T extends Record<string, unknown>> {
   #name: string;

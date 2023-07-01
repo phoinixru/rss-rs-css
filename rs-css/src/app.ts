@@ -1,13 +1,14 @@
 import { Level, App, GameSave, LevelResult } from './types';
+import { elt } from './utils/utils';
 import LEVELS from './levels';
 import LocalStorage from './utils/localStorage';
-import { elt } from './utils/utils';
 import Header from './components/header';
 import Footer from './components/footer';
 import LevelList from './components/levels';
 import Board from './components/board';
 import CssViewer from './components/css-viewer';
 import HtmlViewer from './components/html-viewer';
+import { DEFAULT_LEVEL } from './config';
 
 const CssClasses = {
   APP: 'app',
@@ -26,7 +27,7 @@ const compareArrays = <T>(firstArray: T[], secondArray: T[]): boolean =>
   secondArray.every((el) => firstArray.includes(el));
 
 const EMPTY_SAVE: GameSave = {
-  currentLevel: 0,
+  currentLevel: DEFAULT_LEVEL,
   results: [],
 };
 
@@ -57,8 +58,8 @@ export default class RsCss implements App {
     this.#board = Board.getInstance();
     this.#cssViewer = new CssViewer(this);
     this.#htmlViewer = HtmlViewer.getInstance();
-    this.#levelList = new LevelList(this.#levels);
-    this.loadLevel(2);
+    this.#levelList = new LevelList(this.#levels, this.#save, this);
+    this.restoreGame();
     this.addEventListeners();
   }
 
@@ -94,7 +95,7 @@ export default class RsCss implements App {
     document.body.append(this.#wrapper);
   }
 
-  private loadLevel(id: number): void {
+  public loadLevel(id: number): void {
     if (id < 0 || id > this.#levels.length - 1) {
       return;
     }
@@ -107,6 +108,9 @@ export default class RsCss implements App {
     this.#board.setBoard(level);
     this.#htmlViewer.setContent(this.#board.getBoardContent());
     this.#board.highlight(selector);
+
+    this.#save.set('currentLevel', this.getCurrentLevelId());
+    this.updateLevelList();
   }
 
   public checkAnswer(answer: string): boolean {
@@ -138,7 +142,12 @@ export default class RsCss implements App {
   }
 
   public correctAnswer(): void {
-    this.saveProgress();
+    const levelId = this.getCurrentLevelId();
+    const results = this.#save.get('results') as LevelResult[];
+    results[levelId] = this.#helpRequested ? LevelResult.SOLVED_WITH_HELP : LevelResult.SOLVED;
+    this.#save.set('results', results);
+
+    this.updateLevelList();
     this.loadNextLevel();
   }
 
@@ -150,10 +159,12 @@ export default class RsCss implements App {
     return this.#levels.indexOf(this.#currentLevel);
   }
 
-  private saveProgress(): void {
-    const levelId = this.getCurrentLevelId();
-    const results = this.#save.get('results') as LevelResult[];
-    results[levelId] = this.#helpRequested ? LevelResult.SOLVED_WITH_HELP : LevelResult.SOLVED;
-    this.#save.set('results', results);
+  private updateLevelList(): void {
+    this.#levelList.markLevels();
+  }
+
+  private restoreGame(): void {
+    const level = Number(this.#save.get('currentLevel') || DEFAULT_LEVEL);
+    this.loadLevel(level);
   }
 }

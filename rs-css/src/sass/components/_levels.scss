@@ -1,11 +1,86 @@
-.levels {}
+body {
+  counter-reset: level;
+}
+
+.levels {
+  display: flex;
+  flex-direction: column;
+}
+
+.levels__title {
+  color: rgba(255, 255, 255, .5);
+  padding: 1rem;
+  margin: 0;
+  font-weight: normal;
+}
+
+.level-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9em;
+}
 
 .level {
   cursor: pointer;
   color: var(--levels-color);
+  display: flex;
+  padding: 0.1em 1em;
+
+  &:before {
+    content: '';
+    text-align: center;
+    order: -2;
+    width: 10px;
+    height: 5px;
+    margin-right: 0.5em;
+    border-width: 0 0 2px 2px;
+    border-style: solid;
+    border-radius: 3px;
+    transform: rotate(-45deg);
+    position: relative;
+    top: 3px;
+  }
+
+  &:after {
+    counter-increment: level;
+    content: counter(level);
+    width: 1em;
+    padding-right: .7em;
+    text-align: right;
+    order: -1;
+  }
+}
+
+.level--done {
+  &:before {
+    color: rgb(37, 210, 57);
+  }
+}
+
+.level--helped {
+  &:before {
+    color: rgb(210, 150, 37);
+  }
 }
 
 .level:hover,
 .level--current {
-  background: red;
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, .7);
+}
+
+.levels-reset {
+  margin: 1em;
+  padding: 0.5em 0;
+  border: 1px solid rgba(255, 255, 255, .7);
+  color: rgba(255, 255, 255, .7);
+  background: rgba(255, 255, 255, .2);
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(255, 255, 255, .3);
+    ;
+  }
 }

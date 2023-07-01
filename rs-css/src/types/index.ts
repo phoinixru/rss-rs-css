@@ -15,6 +15,7 @@ export abstract class App {
   public abstract checkAnswer(answer: string): boolean;
   public abstract indicateMistake(): void;
   public abstract correctAnswer(): void;
+  public abstract loadLevel(level: number): void;
 }
 
 export const enum LevelResult {

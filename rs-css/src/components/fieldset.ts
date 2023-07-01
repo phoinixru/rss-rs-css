@@ -107,6 +107,7 @@ export default class Fieldset extends Component<HTMLFieldSetElement> {
       // eslint-disable-next-line no-await-in-loop
       await pause(INPUT_DELAY);
     }
+    this.focus();
   }
 
   private focus(): void {
