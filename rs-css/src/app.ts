@@ -9,6 +9,7 @@ import Board from './components/board';
 import CssViewer from './components/css-viewer';
 import HtmlViewer from './components/html-viewer';
 import { DEFAULT_LEVEL } from './config';
+import Modal from './components/modal';
 
 const CssClasses = {
   APP: 'app',
@@ -50,6 +51,8 @@ export default class RsCss implements App {
 
   #wrapper: HTMLDivElement;
 
+  #modal: Modal;
+
   constructor() {
     this.#wrapper = elt<HTMLDivElement>('div', { className: CssClasses.WRAPPER });
     this.#levels = LEVELS;
@@ -59,6 +62,7 @@ export default class RsCss implements App {
     this.#cssViewer = new CssViewer(this);
     this.#htmlViewer = HtmlViewer.getInstance();
     this.#levelList = new LevelList(this.#levels, this.#save, this);
+    this.#modal = new Modal();
     this.restoreGame();
     this.addEventListeners();
   }
@@ -92,7 +96,7 @@ export default class RsCss implements App {
     asideElement.append(this.#levelList.getElement());
 
     this.#wrapper.append(mainElement, asideElement);
-    document.body.append(this.#wrapper);
+    document.body.append(this.#wrapper, this.#modal.getElement());
   }
 
   public loadLevel(id: number): void {
@@ -148,7 +152,12 @@ export default class RsCss implements App {
     this.#save.set('results', results);
 
     this.updateLevelList();
-    this.loadNextLevel();
+
+    if (this.hasWon()) {
+      this.victory();
+    } else {
+      this.loadNextLevel();
+    }
   }
 
   private loadNextLevel(): void {
@@ -166,5 +175,19 @@ export default class RsCss implements App {
   private restoreGame(): void {
     const level = Number(this.#save.get('currentLevel') || DEFAULT_LEVEL);
     this.loadLevel(level);
+  }
+
+  private hasWon(): boolean {
+    const results = this.#save.get('results') as LevelResult[];
+    const hasWon = this.#levels.reduce(
+      (acc, _, i) => acc && (results[i] === LevelResult.SOLVED || results[i] === LevelResult.SOLVED_WITH_HELP),
+      true
+    );
+
+    return hasWon;
+  }
+
+  private victory(): void {
+    this.#modal.show();
   }
 }
