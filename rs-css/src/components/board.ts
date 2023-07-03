@@ -1,3 +1,4 @@
+import { CONTAINER_CLASS } from '../config';
 import { Level } from '../types';
 import { elt, qs, qsa } from '../utils/utils';
 import Component from './component';
@@ -6,11 +7,12 @@ const CssClasses = {
   BOARD: 'board',
   CONTENT: 'board__content',
   TITLE: 'board__title',
-  TABLE: 'table',
+  CONTAINER: CONTAINER_CLASS,
   HIGHLIGHT: 'highlight',
   HOVER: 'hover',
   HINT: 'board__hint',
   HINT_SHOW: 'board__hint--show',
+  SOLVED: 'board--solved',
 };
 
 const html = (element: HTMLElement): string => {
@@ -100,14 +102,15 @@ export default class Board extends Component<HTMLDivElement> {
     };
     const boardHTML = boardMarkup.replace(/<(\w+).*?\/>/g, replacer);
 
-    const tableElement = elt<HTMLDivElement>('div', { className: CssClasses.TABLE });
-    tableElement.innerHTML = boardHTML;
+    const containerElement = elt<HTMLDivElement>('div', { className: CssClasses.CONTAINER });
+    containerElement.innerHTML = boardHTML;
     this.#board.innerHTML = '';
-    this.#board.append(tableElement);
-    this.#shadowBoard.innerHTML = tableElement.outerHTML;
+    this.toggleSolved(false);
+    this.#board.append(containerElement);
+    this.#shadowBoard.innerHTML = containerElement.outerHTML;
     this.#title.innerHTML = doThis;
 
-    this.prepareHints(tableElement);
+    this.prepareHints(containerElement);
   }
 
   private prepareHints(element: HTMLElement): void {
@@ -125,11 +128,11 @@ export default class Board extends Component<HTMLDivElement> {
   }
 
   public selectItems(selector: string, fromShadow = false): HTMLElement[] {
-    const table = qs<HTMLElement>(`.${CssClasses.TABLE}`, fromShadow ? this.#shadowBoard : this.#board);
-    if (!table) {
+    const container = qs<HTMLElement>(`.${CssClasses.CONTAINER}`, fromShadow ? this.#shadowBoard : this.#board);
+    if (!container) {
       return [];
     }
-    return qsa(selector, table);
+    return qsa(selector, container);
   }
 
   public getBoardContent(): HTMLElement | null {
@@ -138,5 +141,9 @@ export default class Board extends Component<HTMLDivElement> {
       return content;
     }
     return null;
+  }
+
+  public toggleSolved(solved: boolean): void {
+    this.#board.classList.toggle(CssClasses.SOLVED, solved);
   }
 }

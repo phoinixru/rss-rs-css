@@ -21,3 +21,6 @@ export const DEFAULT_LEVEL = 0;
 export const GITHUB_LINK = 'https://github.com/phoinixru';
 export const GITHUB_NAME = 'phoinixru';
 export const RSSCHOOL_LINK = 'https://rs.school/js/';
+
+export const CONTAINER_CLASS = 'table';
+export const LEVEL_DELAY = 400;

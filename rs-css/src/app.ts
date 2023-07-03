@@ -1,5 +1,5 @@
 import { Level, App, GameSave, LevelResult } from './types';
-import { elt } from './utils/utils';
+import { elt, pause } from './utils/utils';
 import LEVELS from './levels';
 import LocalStorage from './utils/localStorage';
 import Header from './components/header';
@@ -8,7 +8,7 @@ import LevelList from './components/levels';
 import Board from './components/board';
 import CssViewer from './components/css-viewer';
 import HtmlViewer from './components/html-viewer';
-import { DEFAULT_LEVEL } from './config';
+import { DEFAULT_LEVEL, LEVEL_DELAY } from './config';
 import Modal from './components/modal';
 
 const CssClasses = {
@@ -145,7 +145,7 @@ export default class RsCss implements App {
     this.#wrapper.classList.add(CssClasses.MISTAKE);
   }
 
-  public correctAnswer(): void {
+  public async correctAnswer(): Promise<void> {
     const levelId = this.getCurrentLevelId();
     const results = this.#save.get('results') as LevelResult[];
     results[levelId] = this.#helpRequested ? LevelResult.SOLVED_WITH_HELP : LevelResult.SOLVED;
@@ -156,6 +156,8 @@ export default class RsCss implements App {
     if (this.hasWon()) {
       this.victory();
     } else {
+      this.#board.toggleSolved(true);
+      await pause(LEVEL_DELAY);
       this.loadNextLevel();
     }
   }
