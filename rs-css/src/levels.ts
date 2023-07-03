@@ -2,8 +2,8 @@ export default [
   {
     helpTitle: 'Select elements by their type',
     selectorName: 'Type Selector',
-    doThis: 'Select the plates',
-    selector: 'plate',
+    doThis: 'Select apples',
+    selector: 'apple',
     syntax: 'A',
     help: 'Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <tag>div</tag>, <tag>p</tag> and <tag>ul</tag> are all different element types.',
     examples: [
@@ -11,13 +11,13 @@ export default [
       '<strong>p</strong> selects all <tag>p</tag> elements.',
     ],
     boardMarkup: `
-    <plate/>
-    <plate/>
+    <apple/>
+    <apple/>
     `,
   },
   {
-    doThis: 'Select the bento boxes',
-    selector: 'bento',
+    doThis: 'Select jars',
+    selector: 'jar',
     syntax: 'A',
     helpTitle: 'Select elements by their type',
     selectorName: 'Type Selector',
@@ -27,14 +27,14 @@ export default [
       '<strong>p</strong> selects all <tag>p</tag> elements.',
     ],
     boardMarkup: `
-    <bento/>
-    <plate/>
-    <bento/>
+    <jar/>
+    <apple/>
+    <jar/>
     `,
   },
   {
-    doThis: 'Select the fancy plate',
-    selector: '#fancy',
+    doThis: 'Select the green apple',
+    selector: '#green',
     selectorName: 'ID Selector',
     helpTitle: 'Select elements with an ID',
     syntax: '#id',
@@ -44,16 +44,16 @@ export default [
       '<strong>ul#long</strong> selects <tag>ul id="long"</tag>',
     ],
     boardMarkup: `
-    <plate id="fancy"/>
-    <plate/>
-    <bento/>
+    <apple/>
+    <apple id="green"/>
+    <apple/>
     `,
   },
   {
     helpTitle: 'Select an element inside another element',
     selectorName: 'Descendant Selector',
-    doThis: 'Select the apple on the plate',
-    selector: 'plate apple',
+    doThis: 'Select the cherry in the jar',
+    selector: 'jar cherry',
     syntax: 'A&nbsp;&nbsp;B',
     help: 'Selects all <strong>B</strong> inside of <strong>A</strong>. <strong>B</strong> is called a descendant because it is inside of another element.',
     examples: [
@@ -61,16 +61,16 @@ export default [
       '<strong>#fancy&nbsp;&nbsp;span</strong> selects any <tag>span</tag> elements that are inside of the element with <strong>id="fancy"</strong>',
     ],
     boardMarkup: `
-    <bento/>
-    <plate>
-      <apple/>
-    </plate>
-    <apple/>
+    <cherry/>
+    <jar>
+      <cherry/>
+    </jar>
+    <cherry/>
     `,
   },
   {
-    doThis: 'Select the pickle on the fancy plate',
-    selector: '#fancy pickle',
+    doThis: 'Select the apple in the large jar',
+    selector: '#large apple',
     helpTitle: 'Combine the Descendant & ID Selectors',
     syntax: '#id&nbsp;&nbsp;A',
     help: 'You can combine any selector with the descendent selector.',
@@ -78,20 +78,18 @@ export default [
       '<strong>#cool&nbsp;span</strong> selects all <tag>span</tag> elements that are inside of elements with <strong>id="cool"</strong>',
     ],
     boardMarkup: `
-    <bento>
-    <orange/>
-    </bento>
-    <plate id="fancy">
-      <pickle/>
-    </plate>
-    <plate>
-      <pickle/>
-    </plate>
+    <jar/>
+    <jar id="large">
+      <apple/>
+    </jar>
+    <jar>
+      <apple/>
+    </jar>
     `,
   },
   {
-    doThis: 'Select the small apples',
-    selector: '.small',
+    doThis: 'Select the magic apples',
+    selector: '.magic',
     selectorName: 'Class Selector',
     helpTitle: 'Select elements by their class',
     syntax: '.classname',
@@ -99,16 +97,16 @@ export default [
     examples: ['<strong>.neato</strong> selects all elements with <strong>class="neato"</strong>'],
     boardMarkup: `
     <apple/>
-    <apple class="small"/>
-    <plate>
-      <apple class="small"/>
-    </plate>
-    <plate/>
+    <apple class="magic"/>
+    <jar>
+      <apple class="magic"/>
+    </jar>
+    <jar/>
     `,
   },
   {
-    doThis: 'Select the small oranges',
-    selector: 'orange.small',
+    doThis: 'Select the magic pears',
+    selector: 'pear.magic',
     helpTitle: 'Combine the Class Selector',
     syntax: 'A.className',
     help: 'You can combine the class selector with other selectors, like the type selector.',
@@ -118,42 +116,40 @@ export default [
     ],
     boardMarkup: `
     <apple/>
-    <apple class="small"/>
-    <bento>
-      <orange class="small"/>
-    </bento>
-    <plate>
-      <orange/>
-    </plate>
-    <plate>
-      <orange class="small"/>
-    </plate>`,
+    <pear class="magic"/>
+    <jar>
+      <pear/>
+    </jar>
+    <jar>
+      <pear class="magic"/>
+    </jar>
+    <apple class="magic"/>`,
   },
   {
-    doThis: 'Select the small oranges in the bentos',
-    selector: 'bento orange.small',
+    doThis: 'Select the magic pear in the jars',
+    selector: 'jar pear.magic',
     syntax: 'Put your back into it!',
     helpTitle: 'You can do it...',
     help: 'Combine what you learned in the last few levels to solve this one!',
     boardMarkup: `
-    <bento>
-      <orange/>
-    </bento>
-    <orange class="small"/>
-    <bento>
-      <orange class="small"/>
-    </bento>
-    <bento>
-      <apple class="small"/>
-    </bento>
-    <bento>
-      <orange class="small"/>
-    </bento>
+    <jar>
+      <pear/>
+    </jar>
+    <pear class="magic"/>
+    <jar>
+      <pear class="magic"/>
+    </jar>
+    <jar>
+      <apple class="magic"/>
+    </jar>
+    <jar>
+      <pear class="magic"/>
+    </jar>
     `,
   },
   {
-    doThis: 'Select all the plates and bentos',
-    selector: 'plate,bento',
+    doThis: 'Select all the pears and apple',
+    selector: 'pear, apple',
     selectorName: 'Comma Combinator',
     helpTitle: 'Combine, selectors, with... commas!',
     syntax: 'A, B',
@@ -163,19 +159,19 @@ export default [
       '<strong>a, p, div</strong> selects all <tag>a</tag>, <tag>p</tag> and <tag>div</tag> elements',
     ],
     boardMarkup: `
-    <pickle class="small"/>
-    <pickle/>
+    <cherry class="magic"/>
+    <cherry/>
     <plate>
-      <pickle/>
+      <pear/>
     </plate>
-    <bento>
-      <pickle/>
-    </bento>
+    <jar>
+      <apple/>
+    </jar>
     <plate>
-      <pickle/>
+      <pear/>
     </plate>
-    <pickle/>
-    <pickle class="small"/>
+    <cherry/>
+    <cherry class="magic"/>
     `,
   },
   {
@@ -188,19 +184,22 @@ export default [
     examples: ['<strong>p *</strong> selects any element inside all <tag>p</tag> elements.'],
     boardMarkup: `
     <apple/>
-    <plate>
-      <orange class="small" />
-    </plate>
-    <bento/>
-    <bento>
-      <orange/>
-    </bento>
-    <plate id="fancy"/>
+    <pear/>
+    <jar>
+      <pear class="magic" />
+    </jar>
+    <jar>
+      <cherry/>
+    </jar>
+    <jar>
+      <pear/>
+    </jar>
+    <apple id="green"/>
     `,
   },
   {
-    doThis: 'Select everything on a plate',
-    selector: 'plate *',
+    doThis: 'Select everything in a jar',
+    selector: 'jar *',
     syntax: 'A&nbsp;&nbsp;*',
     helpTitle: 'Combine the Universal Selector',
     help: 'This selects all elements inside of <strong>A</strong>.',
@@ -209,20 +208,20 @@ export default [
       '<strong>ul.fancy *</strong> selects every element inside all <tag>ul class="fancy"</tag> elements.',
     ],
     boardMarkup: `
-    <plate id="fancy">
-      <orange class="small"/>
-    </plate>
-    <plate>
+    <jar>
+      <pear class="magic"/>
+    </jar>
+    <jar>
       <pickle/>
-    </plate>
-    <apple class="small"/>
-    <plate>
+    </jar>
+    <apple class="magic"/>
+    <jar>
       <apple/>
-    </plate>`,
+    </jar>`,
   },
   {
-    doThis: "Select every apple that's next to a plate",
-    selector: 'plate + apple',
+    doThis: "Select every apple that's next to a jar",
+    selector: 'jar + apple',
     helpTitle: 'Select an element that directly follows another element',
     selectorName: 'Adjacent Sibling Selector',
     syntax: 'A + B',
@@ -232,66 +231,76 @@ export default [
       '<strong>div + a</strong> selects every <tag>a</tag> element that directly follows a <tag>div</tag>',
     ],
     boardMarkup: `
-    <bento>
-      <apple class="small"/>
-    </bento>
-    <plate />
-    <apple class="small"/>
-    <plate />
+    <jar>
+      <apple class="magic"/>
+    </jar>
+    <apple class="magic"/>
     <apple/>
-    <apple class="small"/>
-    <apple class="small"/>
+    <apple class="magic"/>
+    <apple class="magic"/>
     `,
   },
   {
     selectorName: 'General Sibling Selector',
     helpTitle: 'Select elements that follows another element',
     syntax: 'A ~ B',
-    doThis: 'Select the pickles beside the bento',
-    selector: 'bento ~ pickle',
+    doThis: 'Select the cherries beside the jar',
+    selector: 'jar ~ cherry',
     help: 'You can select all siblings of an element that follow it. This is like the Adjacent Selector (A + B) except it gets all of the following elements instead of one.',
     examples: ['<strong>A ~ B</strong> selects all <strong>B</strong> that follow a <strong>A</strong>'],
     boardMarkup: `
-    <pickle/>
-    <bento>
-      <orange class="small"/>
-    </bento>
-    <pickle class="small"/>
-    <pickle/>
-    <plate>
-      <pickle/>
-    </plate>
-    <plate>
-      <pickle class="small"/>
-    </plate>
+    <cherry/>
+    <jar>
+      <pear class="magic"/>
+    </jar>
+    <cherry class="magic"/>
+    <cherry/>
+    <jar>
+      <cherry/>
+    </jar>
+    <jar>
+      <cherry class="magic"/>
+    </jar>
     `,
   },
   {
     selectorName: 'Child Selector',
     syntax: 'A > B&nbsp;',
     doThis: 'Select the apple directly on a plate',
-    selector: 'plate > apple',
+    selector: 'jar > apple',
     helpTitle: 'Select direct children of an element',
     help: 'You can select elements that are direct children of other elements. A child element is any element that is nested directly in another element. <br><br>Elements that are nested deeper than that are called descendant elements.',
     examples: ['<strong>A > B</strong> selects all <strong>B</strong> that are a direct children <strong>A</strong>'],
     boardMarkup: `
-    <plate>
-      <bento>
-        <apple/>
-      </bento>
-    </plate>
-    <plate>
+    <jar>
       <apple/>
-    </plate>
-    <plate/>
+    </jar>
     <apple/>
-    <apple class="small"/>
+    <jar/>
+    <apple/>
+    <apple class="magic"/>
     `,
   },
   {
+    selectorName: 'Empty Selector',
+    helpTitle: "Select elements that don't have children",
+    doThis: 'Select the empty jars',
+    selector: 'jar:empty',
+    syntax: ':empty',
+    help: "Selects elements that don't have any other elements inside of them.",
+    examples: ['<strong>div:empty</strong> selects all empty <tag>div</tag> elements.'],
+    boardMarkup: `
+    <jar/>
+    <jar>
+      <cherry class="magic"/>
+    </jar>
+    <jar/>`,
+  },
+  /*
+  {
     selectorName: 'First Child Pseudo-selector',
     helpTitle: 'Select a first child element inside of another element',
-    doThis: 'Select the top orange',
+    doThis: 'Select the top pear',
     selector: 'plate :first-child',
     syntax: ':first-child',
 
@@ -302,16 +311,16 @@ export default [
       '<strong>div p:first-child</strong> selects all first child <tag>p</tag> elements that are in a <tag>div</tag>.',
     ],
     boardMarkup: `
-    <bento/>
-    <plate />
-    <plate>
-      <orange />
-      <orange />
-      <orange />
-    </plate>
-    <pickle class="small" />
+    <jar/>
+    <jar>
+      <cherry />
+      <cherry />
+      <cherry />
+    </jar>
+    <cherry class="magic" />
     `,
   },
+  /*
   {
     selectorName: 'Only Child Pseudo-selector',
     helpTitle: 'Select an element that are the only element inside of another one.',
@@ -330,21 +339,21 @@ export default [
     <plate>
       <pickle />
     </plate>
-    <bento>
+    <jar>
       <pickle />
-    </bento>
+    </jar>
     <plate>
-      <orange class="small"/>
-      <orange/>
+      <pear class="magic"/>
+      <pear/>
     </plate>
-    <pickle class="small"/>
+    <pickle class="magic"/>
     `,
   },
   {
     selectorName: 'Last Child Pseudo-selector',
     helpTitle: 'Select the last element inside of another element',
-    doThis: 'Select the small apple and the pickle',
-    selector: '.small:last-child',
+    doThis: 'Select the magic apple and the pickle',
+    selector: '.magic:last-child',
     syntax: ':last-child',
     help: 'You can use this selector to select an element that is the last child element inside of another element. <br><br>Pro Tip &rarr; In cases where there is only one element, that element counts as the first-child, only-child and last-child!',
     examples: [
@@ -354,14 +363,14 @@ export default [
     ],
     boardMarkup: `
     <plate id="fancy">
-      <apple class="small"/>
+      <apple class="magic"/>
     </plate>
     <plate/>
     <plate>
-      <orange class="small"/>
-      <orange>
+      <pear class="magic"/>
+      <pear>
     </plate>
-    <pickle class="small"/>`,
+    <pickle class="magic"/>`,
   },
   {
     selectorName: 'Nth Child Pseudo-selector',
@@ -384,20 +393,20 @@ export default [
   {
     selectorName: 'Nth Last Child Selector',
     helpTitle: 'Select an element by its order in another element, counting from the back',
-    doThis: 'Select the 1st bento',
-    selector: 'bento:nth-last-child(3)',
+    doThis: 'Select the 1st jar',
+    selector: 'jar:nth-last-child(3)',
     syntax: ':nth-last-child(A)',
     help: 'Selects the children from the bottom of the parent. This is like nth-child, but counting from the back!',
     examples: ['<strong>:nth-last-child(2)</strong> selects all second-to-last child elements.'],
     boardMarkup: `
     <plate/>
-    <bento/>
+    <jar/>
     <plate>
-      <orange/>
-      <orange/>
-      <orange/>
+      <pear/>
+      <pear/>
+      <pear/>
     </plate>
-    <bento/>
+    <jar/>
     `,
   },
   {
@@ -409,14 +418,14 @@ export default [
     help: 'Selects the first element of that type within another element.',
     examples: ['<strong>span:first-of-type</strong> selects the first <tag>span</tag> in any element.'],
     boardMarkup: `
-    <orange class="small"/>
+    <pear class="magic"/>
     <apple/>
-    <apple class="small"/>
+    <apple class="magic"/>
     <apple/>
-    <apple class="small"/>
+    <apple class="magic"/>
     <plate>
-      <orange class="small"/>
-      <orange/>
+      <pear class="magic"/>
+      <pear/>
     </plate>
     `,
   },
@@ -451,10 +460,10 @@ export default [
     boardMarkup: `
     <plate/>
     <plate>
-      <pickle class="small" />
+      <pickle class="magic" />
     </plate>
     <plate>
-      <apple class="small" />
+      <apple class="magic" />
     </plate>
     <plate/>
     <plate>
@@ -475,11 +484,11 @@ export default [
     ],
     boardMarkup: `
     <plate id="fancy">
-      <apple class="small" />
+      <apple class="magic" />
       <apple />
     </plate>
     <plate>
-      <apple class="small" />
+      <apple class="magic" />
     </plate>
     <plate>
       <pickle />
@@ -489,8 +498,8 @@ export default [
   {
     selectorName: 'Last of Type Selector',
     helpTitle: 'Select the last element of a specific type',
-    doThis: 'Select the last apple and orange',
-    selector: '.small:last-of-type',
+    doThis: 'Select the last apple and pear',
+    selector: '.magic:last-of-type',
     syntax: ':last-of-type',
     help: 'Selects each last element of that type within another element. Remember type refers the kind of tag, so <tag>p</tag> and <tag>span</tag> are different types. <br><br> I wonder if this is how the last dinosaur was selected before it went extinct.',
     examples: [
@@ -498,35 +507,35 @@ export default [
       '<strong>p span:last-of-type</strong> selects the last <tag>span</tag> in every <tag>p</tag>.',
     ],
     boardMarkup: `
-    <orange class="small"/>
-    <orange class="small" />
+    <pear class="magic"/>
+    <pear class="magic" />
     <pickle />
     <pickle />
-    <apple class="small" />
-    <apple class="small" />
+    <apple class="magic" />
+    <apple class="magic" />
     `,
   },
   {
     selectorName: 'Empty Selector',
     helpTitle: "Select elements that don't have children",
-    doThis: 'Select the empty bentos',
-    selector: 'bento:empty',
+    doThis: 'Select the empty jars',
+    selector: 'jar:empty',
     syntax: ':empty',
     help: "Selects elements that don't have any other elements inside of them.",
     examples: ['<strong>div:empty</strong> selects all empty <tag>div</tag> elements.'],
     boardMarkup: `
-    <bento/>
-    <bento>
-      <pickle class="small"/>
-    </bento>
+    <jar/>
+    <jar>
+      <pickle class="magic"/>
+    </jar>
     <plate/>
-    <bento/>`,
+    <jar/>`,
   },
   {
     selectorName: 'Negation Pseudo-class',
     helpTitle: "Select all elements that don't match the negation selector",
     doThis: 'Select the big apples',
-    selector: 'apple:not(.small)',
+    selector: 'apple:not(.magic)',
     syntax: ':not(X)',
     help: 'You can use this to select all elements that do not match selector <strong>"X"</strong>.',
     examples: [
@@ -536,16 +545,16 @@ export default [
     ],
     boardMarkup: `
     <plate id="fancy">
-      <apple class="small" />
+      <apple class="magic" />
     </plate>
     <plate>
       <apple />
     </plate>
     <apple />
     <plate>
-      <orange class="small" />
+      <pear class="magic" />
     </plate>
-    <pickle class="small" />
+    <pickle class="magic" />
     `,
   },
   {
@@ -560,10 +569,10 @@ export default [
       '<strong>[type]</strong> selects all elements that have a <strong>type="anything"</strong>. attribute',
     ],
     boardMarkup: `
-    <bento><apple class="small"/></bento>
+    <jar><apple class="magic"/></jar>
     <apple for="Ethan"/>
     <plate for="Alice"><pickle/></plate>
-    <bento for="Clara"><orange/></bento>
+    <jar for="Clara"><pear/></jar>
     <pickle/>`,
   },
   {
@@ -582,7 +591,7 @@ export default [
     <plate for="Sarah"><pickle/></plate>
     <plate for="Luke"><apple/></plate>
     <plate/>
-    <bento for="Steve"><orange/></bento>
+    <jar for="Steve"><pear/></jar>
     `,
   },
   {
@@ -595,8 +604,8 @@ export default [
     examples: ['<strong>input[type="checkbox"]</strong> selects all checkbox input elements.'],
     boardMarkup: `
     <apple for="Alexei" />
-    <bento for="Albina"><apple /></bento>
-    <bento for="Vitaly"><orange/></bento>
+    <jar for="Albina"><apple /></jar>
+    <jar for="Vitaly"><pear/></jar>
     <pickle/>
     `,
   },
@@ -612,8 +621,8 @@ export default [
     ],
     boardMarkup: `
     <plate for="Sam"><pickle/></plate>
-    <bento for="Sarah"><apple class="small"/></bento>
-    <bento for="Mary"><orange/></bento>
+    <jar for="Sarah"><apple class="magic"/></jar>
+    <jar for="Mary"><pear/></jar>
     `,
   },
   {
@@ -625,11 +634,11 @@ export default [
     help: '',
     examples: ['<strong>img[src$=".jpg"]</strong> selects all images display a <strong>.jpg</strong> image.'],
     boardMarkup: `
-    <apple class="small"/>
-    <bento for="Hayato"><pickle/></bento>
+    <apple class="magic"/>
+    <jar for="Hayato"><pickle/></jar>
     <apple for="Ryota"></apple>
-    <plate for="Minato"><orange/></plate>
-    <pickle class="small"/>
+    <plate for="Minato"><pear/></plate>
+    <pickle class="magic"/>
     `,
   },
   {
@@ -644,9 +653,10 @@ export default [
       '<strong>[class*="heading"]</strong> selects all elements with "heading" in their class, like <strong>class="main-heading"</strong> and <strong>class="sub-heading"</strong>',
     ],
     boardMarkup: `
-    <bento for="Robbie"><apple /></bento>
-    <bento for="Timmy"><pickle /></bento>
-    <bento for="Bobby"><orange /></bento>
+    <jar for="Robbie"><apple /></jar>
+    <jar for="Timmy"><pickle /></jar>
+    <jar for="Bobby"><pear /></jar>
     `,
   },
+  */
 ];

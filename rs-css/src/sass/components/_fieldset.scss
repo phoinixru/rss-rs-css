@@ -39,3 +39,13 @@
     display: inline-block;
   }
 }
+
+.field-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.field {
+  min-height: 1em;
+}

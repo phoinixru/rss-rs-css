@@ -2,123 +2,127 @@
   text-align: center;
   color: rgba(255, 255, 255, .5);
   margin: 0;
-  padding-bottom: 1.5em;
+  padding: 1em 0;
 }
 
 .board__content {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
   position: relative;
+
+  * {
+    position: relative;
+  }
 }
 
 .board {
   position: relative;
-  padding-bottom: 1.5em;
+  padding-bottom: 1em;
 
-  .table {
+  .garden {
     display: flex;
     align-items: center;
     gap: 1em;
     padding: 1em 2em;
-    background: rgb(244, 199, 49);
-    transform-style: preserve-3d;
+  }
 
-    * {
+
+  jar {
+    &:before {
+      content: '🫙';
+      font-size: 5em;
       position: relative;
     }
-  }
 
-  plate,
-  bento {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 80px;
-    height: 80px;
-    border: 3px solid rgb(191, 105, 105);
-  }
-
-  plate {
-    border-radius: 100%;
-
-    &#fancy {
-      border-color: rgba(130, 130, 230, 0.909);
+    * {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      bottom: 20%;
     }
 
-    bento {
-      width: 80%;
-      height: 80%;
-      margin-bottom: 1em;
+    cherry {
+      font-size: 0.8em;
     }
-  }
 
-  orange,
-  apple {
-    display: flex;
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-
-    &.small {
-      width: 20px;
-      height: 20px;
+    &#large {
+      &:before {
+        font-size: 7em;
+      }
     }
-  }
-
-  orange {
-    background: orange;
   }
 
   apple {
-    background: red;
+    &:before {
+      content: '🍎';
+      font-size: 3em;
+    }
+
+    &#green:before {
+      content: '🍏';
+    }
   }
 
-  pickle {
-    display: flex;
-    width: 25px;
-    height: 50px;
-    border-radius: 25px;
-    background: green;
-
-    &.small {
-      width: 13px;
-      height: 25px;
-      border-radius: 13px;
+  cherry {
+    &:before {
+      content: '🍒';
+      font-size: 3em;
     }
+  }
+
+  pear {
+    &:before {
+      content: '🍐';
+      font-size: 3em;
+    }
+  }
+
+  .magic {
+    filter: invert(1);
   }
 
   .highlight {
-    // animation: glowing 1300ms infinite;
-    box-shadow: 0 0 20px var(--glow-color);
+    animation: glowing 1300ms infinite;
+    transition: all 0.3s ease-in;
+    transform-origin: center;
   }
 
-  .table .hover {
-    outline: 5px solid rgba(255, 255, 255, .5);
+  .garden .hover {
+    text-shadow: 0 0 13px #fff;
+
+    * {
+      text-shadow: none;
+    }
+  }
+}
+
+.board--solved {
+  .highlight {
+    animation: none;
+    scale: 0.2;
   }
 }
 
 @keyframes glowing {
   0% {
-    // box-shadow: 0 0 5px var(--glow-color);
+    opacity: 0.5;
   }
 
   50% {
-    transform: translateY(-10px);
-    // box-shadow: 0 0 20px var(--glow-color);
+    opacity: 1;
   }
 
   100% {
-    // box-shadow: 0 0 5px var(--glow-color);
+    opacity: 0.5;
   }
 }
 
 .board__hint {
   position: absolute;
   display: none;
-  top: 1.5em;
+  bottom: 0;
   background: #fff;
   border: 2px solid #999;
   box-shadow: 3px 3px 0 rgba(0, 0, 0, .5);
