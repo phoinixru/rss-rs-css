@@ -161,7 +161,20 @@ export default class RsCss implements App {
   }
 
   private loadNextLevel(): void {
-    this.loadLevel(this.getCurrentLevelId() + 1);
+    const current = this.getCurrentLevelId();
+    let next = this.getNextUnsolved(current);
+    console.log(next);
+    if (next < 0) {
+      next = this.getNextUnsolved();
+    }
+    console.log(next);
+
+    this.loadLevel(next);
+  }
+
+  private getNextUnsolved(from = -1): number {
+    const results = this.#save.get('results') as LevelResult[];
+    return this.#levels.findIndex((_, index) => index > from && !results[index]);
   }
 
   private getCurrentLevelId(): number {
@@ -179,9 +192,8 @@ export default class RsCss implements App {
 
   private hasWon(): boolean {
     const results = this.#save.get('results') as LevelResult[];
-    const hasWon = this.#levels.reduce(
-      (acc, _, i) => acc && (results[i] === LevelResult.SOLVED || results[i] === LevelResult.SOLVED_WITH_HELP),
-      true
+    const hasWon = this.#levels.every(
+      (_, i) => results[i] === LevelResult.SOLVED || results[i] === LevelResult.SOLVED_WITH_HELP
     );
 
     return hasWon;
