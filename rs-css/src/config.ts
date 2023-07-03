@@ -17,3 +17,7 @@ export const INPUT_DELAY = 70;
 export const MAX_MISTAKES = 3;
 
 export const DEFAULT_LEVEL = 0;
+
+export const GITHUB_LINK = 'https://github.com/phoinixru';
+export const GITHUB_NAME = 'phoinixru';
+export const RSSCHOOL_LINK = 'https://rs.school/js/';
