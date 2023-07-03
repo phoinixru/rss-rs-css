@@ -1,6 +1,9 @@
 .wrapper {
+  position: relative;
   min-height: 100vh;
   margin: auto;
   display: grid;
   grid-template-columns: 1fr 250px;
+  max-width: 100%;
+  overflow: hidden;
 }

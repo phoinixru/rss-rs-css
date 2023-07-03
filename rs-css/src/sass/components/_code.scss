@@ -30,7 +30,7 @@
 }
 
 .code--css {
-  border-right: 0;
+  border-right-width: 0;
 }
 
 .code__header {
@@ -193,5 +193,24 @@
 
   100% {
     transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+@media (max-width: 700px) {
+  .codes {
+    flex-direction: column;
+  }
+
+  .code {
+    width: 100%;
+  }
+
+  .code--css {
+    border-right-width: 1px;
+
+    & .code__markup {
+      max-height: 4*1.4em;
+      overflow: hidden;
+    }
   }
 }

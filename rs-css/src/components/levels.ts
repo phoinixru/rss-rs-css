@@ -6,6 +6,7 @@ import Component from './component';
 
 const CssClasses = {
   LEVELS: 'levels',
+  OPEN: 'levels--open',
   TITLE: 'levels__title',
   LIST: 'level-list',
   LEVEL: 'level',
@@ -14,6 +15,10 @@ const CssClasses = {
   CURRENT: 'level--current',
   TOGGLE: 'levels__toggle',
   RESET: 'levels-reset',
+};
+
+const toggleList = (toggle?: boolean): void => {
+  document.body.classList.toggle(CssClasses.OPEN, toggle);
 };
 
 export default class LevelList extends Component<HTMLDivElement> {
@@ -56,17 +61,25 @@ export default class LevelList extends Component<HTMLDivElement> {
     if (target.matches(`.${CssClasses.RESET}`)) {
       this.reset();
     }
+
+    const toggle = target.closest(`.${CssClasses.TOGGLE}`);
+    if (toggle instanceof HTMLElement) {
+      toggleList();
+    }
   }
 
   public changeLevel(level: number): void {
     this.#app.loadLevel(level);
     this.markLevels();
+    toggleList(false);
   }
 
   private render(): void {
     const title = elt<HTMLElement>('h2', { className: CssClasses.TITLE }, LEVELS_TITLE);
-    const menuToggle = elt<HTMLElement>('a', { className: CssClasses.TOGGLE });
     const btnReset = elt<HTMLButtonElement>('button', { className: CssClasses.RESET }, BTN_RESET_TEXT);
+
+    const menuToggle = elt<HTMLElement>('a', { className: CssClasses.TOGGLE, innerHTML: '<span></span>' });
+    menuToggle.addEventListener('click', () => toggleList());
 
     this.#levels.forEach((level, index) => {
       const { syntax } = level;
@@ -78,8 +91,10 @@ export default class LevelList extends Component<HTMLDivElement> {
     });
 
     this.element.innerHTML = '';
-    this.element.append(menuToggle, title, this.#list, btnReset);
+    this.element.append(title, this.#list, btnReset);
     this.markLevels();
+
+    document.body.append(menuToggle);
   }
 
   public markLevels(): void {
@@ -100,5 +115,6 @@ export default class LevelList extends Component<HTMLDivElement> {
     this.#save.set('currentLevel', 0);
     this.#save.set('results', []);
     this.#app.loadLevel(0);
+    toggleList(false);
   }
 }

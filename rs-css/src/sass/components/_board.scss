@@ -1,6 +1,8 @@
 .board__title {
   text-align: center;
   color: rgba(255, 255, 255, .5);
+  margin: 0;
+  padding-bottom: 1.5em;
 }
 
 .board__content {
@@ -13,6 +15,7 @@
 
 .board {
   position: relative;
+  padding-bottom: 1.5em;
 
   .table {
     display: flex;
@@ -115,7 +118,7 @@
 .board__hint {
   position: absolute;
   display: none;
-  top: 0;
+  top: 1.5em;
   background: #fff;
   border: 2px solid #999;
   box-shadow: 3px 3px 0 rgba(0, 0, 0, .5);
