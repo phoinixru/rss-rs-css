@@ -142,9 +142,6 @@ export default [
     <jar>
       <apple class="magic"/>
     </jar>
-    <jar>
-      <pear class="magic"/>
-    </jar>
     `,
   },
   {
@@ -159,7 +156,6 @@ export default [
       '<strong>a, p, div</strong> selects all <tag>a</tag>, <tag>p</tag> and <tag>div</tag> elements',
     ],
     boardMarkup: `
-    <cherry class="magic"/>
     <cherry/>
     <plate>
       <pear/>
@@ -170,7 +166,6 @@ export default [
     <plate>
       <pear/>
     </plate>
-    <cherry/>
     <cherry class="magic"/>
     `,
   },
@@ -184,7 +179,6 @@ export default [
     examples: ['<strong>p *</strong> selects any element inside all <tag>p</tag> elements.'],
     boardMarkup: `
     <apple/>
-    <pear/>
     <jar>
       <pear class="magic" />
     </jar>
@@ -255,9 +249,6 @@ export default [
     </jar>
     <cherry class="magic"/>
     <cherry/>
-    <jar>
-      <cherry/>
-    </jar>
     <jar>
       <cherry class="magic"/>
     </jar>
