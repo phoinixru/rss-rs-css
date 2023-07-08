@@ -15,7 +15,7 @@ const CssClasses = {
   SOLVED: 'board--solved',
 };
 
-const html = (element: HTMLElement): string => {
+export const html = (element: HTMLElement): string => {
   return element.outerHTML.replace(/>.+</ms, '><');
 };
 
