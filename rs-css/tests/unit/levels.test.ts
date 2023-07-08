@@ -21,5 +21,4 @@ describe('Menu toggle', () => {
 
     expect(result).toEqual(true);
   });
-
 });
