@@ -12,7 +12,7 @@ const CssClasses = {
   HELP: 'button--help',
 };
 
-const classes = (...arr: string[]): string => arr.join(' ');
+export const classes = (...arr: string[]): string => arr.join(' ');
 
 export default class Fieldset extends Component<HTMLFieldSetElement> {
   private static instance: Fieldset;
