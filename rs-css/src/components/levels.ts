@@ -4,7 +4,7 @@ import LocalStorage from '../utils/localStorage';
 import { dispatch, elt, qsa } from '../utils/utils';
 import Component from './component';
 
-const CssClasses = {
+export const CssClasses = {
   LEVELS: 'levels',
   OPEN: 'levels--open',
   TITLE: 'levels__title',
@@ -17,7 +17,7 @@ const CssClasses = {
   RESET: 'levels-reset',
 };
 
-const toggleList = (toggle?: boolean): void => {
+export const toggleList = (toggle?: boolean): void => {
   document.body.classList.toggle(CssClasses.OPEN, toggle);
 };
 
