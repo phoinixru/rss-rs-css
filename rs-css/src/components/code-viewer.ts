@@ -19,12 +19,12 @@ export type CodeViewerOptions = {
   lines?: number;
 };
 
-const numbers = (count: number): number[] =>
+export const numbers = (count = 0): number[] =>
   Array<number>(count)
     .fill(1)
     .map((e, i) => e + i);
 
-const numToString = (num: number, maxLength = 2, fillString = ' '): string =>
+export const numToString = (num: number, maxLength = 2, fillString = ' '): string =>
   String(num).padStart(maxLength, fillString);
 
 export class CodeViewer extends Component<HTMLDivElement> {
