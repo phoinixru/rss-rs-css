@@ -8,7 +8,7 @@ const CSS_TEXT = `{
 }
 `;
 
-const addLineBreaks = (text: string): string => text.split('\n').join('<br>');
+export const addLineBreaks = (text: string): string => text.split('\n').join('<br>');
 export default class CssViewer extends CodeViewer {
   #app: App;
 
