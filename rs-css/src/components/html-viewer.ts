@@ -1,4 +1,5 @@
 import { HTML_FILENAME, HTML_TITLE } from '../config';
+import { TYPE } from '../types';
 import { elt } from '../utils/utils';
 import Board from './board';
 import { CodeViewer } from './code-viewer';
@@ -10,27 +11,18 @@ const CssClasses = {
   TAG: 'tag',
 };
 
-enum TYPE {
-  BRACKET = 'b',
-  TAG = 't',
-  ATTRIBUTE = 'a',
-  VALUE = 'v',
-  QUOTE = 'q',
-  SPACE = 's',
-  EQ = 'e',
-}
+export const item = (type: TYPE, value: string): HTMLSpanElement =>
+  elt<HTMLSpanElement>('span', { className: type }, value);
+export const openBracket = (close = false): HTMLSpanElement => item(TYPE.BRACKET, close ? '</' : '<');
+export const closeBracket = (close = false): HTMLSpanElement => item(TYPE.BRACKET, close ? '/>' : '>');
+export const eq = (): HTMLSpanElement => item(TYPE.EQ, '=');
+export const tag = (text: string): HTMLSpanElement => item(TYPE.TAG, text.toLowerCase());
+export const attr = (text: string): HTMLSpanElement => item(TYPE.ATTRIBUTE, text);
+export const quote = (): HTMLSpanElement => item(TYPE.QUOTE, '"');
+export const value = (text: string): HTMLSpanElement => item(TYPE.VALUE, text);
+export const space = (): HTMLSpanElement => item(TYPE.SPACE, ' ');
 
-const item = (type: TYPE, value: string): HTMLSpanElement => elt<HTMLSpanElement>('span', { className: type }, value);
-const openBracket = (close = false): HTMLSpanElement => item(TYPE.BRACKET, close ? '</' : '<');
-const closeBracket = (close = false): HTMLSpanElement => item(TYPE.BRACKET, close ? '/>' : '>');
-const eq = (): HTMLSpanElement => item(TYPE.EQ, '=');
-const tag = (text: string): HTMLSpanElement => item(TYPE.TAG, text.toLowerCase());
-const attr = (text: string): HTMLSpanElement => item(TYPE.ATTRIBUTE, text);
-const quote = (): HTMLSpanElement => item(TYPE.QUOTE, '"');
-const value = (text: string): HTMLSpanElement => item(TYPE.VALUE, text);
-const space = (): HTMLSpanElement => item(TYPE.SPACE, ' ');
-
-const openTag = (element: HTMLElement, hasChildren: boolean): HTMLElement => {
+export const openTag = (element: HTMLElement, hasChildren: boolean): HTMLElement => {
   const tagElement = elt<HTMLSpanElement>('span', { className: CssClasses.TAG });
   tagElement.append(openBracket(), tag(element.tagName));
 
@@ -46,7 +38,7 @@ const openTag = (element: HTMLElement, hasChildren: boolean): HTMLElement => {
   return tagElement;
 };
 
-const closeTag = (element: HTMLElement): HTMLElement => {
+export const closeTag = (element: HTMLElement): HTMLElement => {
   const tagElement = elt<HTMLSpanElement>('span', { className: CssClasses.TAG });
   tagElement.append(openBracket(true), tag(element.tagName), closeBracket(false));
   return tagElement;

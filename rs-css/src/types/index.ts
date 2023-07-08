@@ -41,3 +41,13 @@ declare global {
     level: CustomEvent<number>;
   }
 }
+
+export enum TYPE {
+  BRACKET = 'b',
+  TAG = 't',
+  ATTRIBUTE = 'a',
+  VALUE = 'v',
+  QUOTE = 'q',
+  SPACE = 's',
+  EQ = 'e',
+}
