@@ -7,7 +7,7 @@
     "build": "webpack --config ./webpack.config.js --mode=production --node-env=production",
     "serve": "webpack serve --open --config ./webpack.config.js --mode=development --node-env=development",
     "test": "jest",
-    "publish": "npm run build && gh-page -d dist -m \"chore: update deploy\""
+    "publish": "npm run build && gh-pages -d dist -m \"chore: update deploy\""
   },
   "author": "Vitaly Kukushkin",
   "license": "ISC",
